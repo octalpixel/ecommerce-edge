@@ -11,11 +11,112 @@ datasource db {
     relationMode = "prisma"
 }
 
-model Note {
-    id         String   @id @default(cuid())
-    text       String   @db.Text()
-    authorId   String
-    authorName String
-    createdAt  DateTime @default(now())
-    updatedAt  DateTime @updatedAt
+model Product {
+    id          String  @id @default(cuid())
+    name        String
+    description String  @db.Text
+    price       Float
+    sku         String?
+    active      Boolean @default(false)
+    inStock     Int?
+
+    seoId String?
+
+    Variants Variant[]
+    Media    Media[]
+    SEO      SEO?      @relation(fields: [seoId], references: [id])
+
+    updatedAt DateTime @updatedAt
+    createdAt DateTime @default(now())
+
+    @@index([seoId])
+}
+
+model Variant {
+    id          String  @id @default(cuid())
+    description String  @db.Text
+    media       Media[]
+    price       Float
+    sku         String?
+    inStock     Int?
+
+    productId       String
+    variantGroupId  String
+    variantOptionId String
+
+    VariantGroup  VariantGroup  @relation(fields: [variantGroupId], references: [id])
+    VariantOption VariantOption @relation(fields: [variantOptionId], references: [id])
+    Product       Product       @relation(fields: [productId], references: [id])
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    @@index([variantGroupId])
+    @@index([productId])
+    @@index([variantOptionId])
+}
+
+model Media {
+    id      String @id @default(cuid())
+    url     String @db.Text
+    altText String
+
+    productId String
+    variantId String?
+
+    Product Product  @relation(fields: [productId], references: [id])
+    Variant Variant? @relation(fields: [variantId], references: [id])
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    @@index([productId])
+    @@index([variantId])
+}
+
+model VariantGroup {
+    id   String @id @default(cuid())
+    name String
+
+    VariantOption VariantOption[]
+    Variant       Variant[]
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
+
+model VariantOption {
+    id   String @id @default(cuid())
+    name String
+
+    variantGroupId String
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    VariantGroup VariantGroup @relation(fields: [variantGroupId], references: [id])
+    Variant      Variant[]
+
+    @@index([variantGroupId])
+}
+
+model SEO {
+    id              String @id @default(cuid())
+    customPermalink String @db.Text
+    title           String
+    description     String @db.Text
+
+    Product Product[]
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
+
+model AdminUsers {
+    id    String @id @default(cuid())
+    email String @unique
+    name  String
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
 }

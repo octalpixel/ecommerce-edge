@@ -101,6 +101,28 @@ const enforceUserIsAuthed = t.middleware(({ ctx, next }) => {
     });
 });
 
+const enforceUserIsAdmin = t.middleware(async ({ ctx, next }) => {
+    if (!ctx.session || !ctx.session.userId) {
+        throw new TRPCError({ code: "UNAUTHORIZED" });
+    }
+
+    const isAdmin = await ctx.db
+        .selectFrom("AdminUsers")
+        .where("AdminUsers.id", "=", ctx.session.userId)
+        .select("AdminUsers.id")
+        .executeTakeFirst();
+
+    if (!isAdmin) {
+        throw new TRPCError({ code: "UNAUTHORIZED" });
+    }
+
+    return next({
+        ctx: {
+            session: { ...ctx.session },
+        },
+    });
+});
+
 /**
  * Protected (authenticated) procedure
  *
@@ -110,3 +132,4 @@ const enforceUserIsAuthed = t.middleware(({ ctx, next }) => {
  * @see https://trpc.io/docs/procedures
  */
 export const protectedProcedure = t.procedure.use(enforceUserIsAuthed);
+export const adminProcedure = t.procedure.use(enforceUserIsAdmin);
