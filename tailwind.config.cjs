@@ -25,6 +25,9 @@ module.exports = {
             },
         },
     },
-    //@ts-expect-error - Tailwind CSS Animate is not typed
-    plugins: [require("tailwindcss-animate")],
+    plugins: [
+        //@ts-expect-error - Tailwind CSS Animate is not typed
+        require("tailwindcss-animate"),
+        require("@tailwindcss/typography"),
+    ],
 };

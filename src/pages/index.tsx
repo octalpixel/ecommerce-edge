@@ -3,11 +3,11 @@ import { api } from "~/utils/api";
 import { type Product, productCreationSchema } from "~/schemas/products";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Label } from "~/components/Label";
-import { Input } from "~/components/Input";
-import { Checkbox } from "~/components/Checkbox";
-import { Button } from "~/components/Button";
-import { Textarea } from "~/components/Textarea";
+import { Label } from "~/components/UI/Label";
+import { Input } from "~/components/UI/Input";
+import { Checkbox } from "~/components/UI/Checkbox";
+import { Button } from "~/components/UI/Button";
+import { Editor } from "~/components/Editor";
 
 export default function HomePage() {
     const productsQuery = api.products.list.useQuery();
@@ -18,6 +18,8 @@ export default function HomePage() {
         reset,
         formState: { errors },
         control,
+        setValue,
+        getValues,
     } = useForm<Product>({
         resolver: zodResolver(productCreationSchema),
     });
@@ -28,7 +30,7 @@ export default function HomePage() {
     }
 
     return (
-        <div className="container mx-auto max-w-4xl">
+        <div className="container mx-auto">
             <ul>
                 {productsQuery?.data?.map((product) => (
                     <li key={product.id}>
@@ -41,7 +43,7 @@ export default function HomePage() {
                 className="flex flex-col items-center gap-4"
                 onSubmit={handleSubmit(onSubmit)}
             >
-                <div className="grid w-full max-w-sm items-center gap-1.5">
+                <div className="grid w-full max-w-4xl items-center gap-1.5">
                     <Label required htmlFor="name">
                         Name
                     </Label>
@@ -53,20 +55,18 @@ export default function HomePage() {
                     />
                 </div>
 
-                <div className="grid w-full max-w-sm items-center gap-1.5">
+                <div className="grid w-full max-w-4xl items-center gap-1.5">
                     <Label required htmlFor="description">
                         Descrição{" "}
                     </Label>
-                    <Textarea
-                        id="description"
-                        placeholder="Descrição"
-                        className="resize-none"
-                        rows={6}
-                        {...register("description")}
+                    <Editor
+                        name="description"
+                        register={register}
+                        setValue={setValue}
                     />
                 </div>
 
-                <div className="grid w-full max-w-sm items-center gap-1.5">
+                <div className="grid w-full max-w-4xl items-center gap-1.5">
                     <Label required htmlFor="price">
                         Preço
                     </Label>
@@ -80,7 +80,7 @@ export default function HomePage() {
                     />
                 </div>
 
-                <div className="grid w-full max-w-sm items-center gap-1.5">
+                <div className="grid w-full max-w-4xl items-center gap-1.5">
                     <Label htmlFor="sku">SKU</Label>
                     <Input
                         type="text"
@@ -90,7 +90,7 @@ export default function HomePage() {
                     />
                 </div>
 
-                <div className="grid w-full max-w-sm items-center gap-1.5">
+                <div className="grid w-full max-w-4xl items-center gap-1.5">
                     <Label htmlFor="in_stock">Em estoque</Label>
                     <Input
                         type="number"
@@ -100,12 +100,12 @@ export default function HomePage() {
                     />
                 </div>
 
-                <div className="flex w-full max-w-sm items-center gap-1.5">
+                <div className="flex w-full max-w-4xl items-center gap-1.5">
                     <Checkbox
                         controllerProps={{
                             name: "active",
                             defaultValue: false,
-                            //@ts-expect-error typescript doesn't know about the control prop
+                            //@ts-expect-error react-hook-form controller doesnt accept the generic type argument <Product> but this works
                             control,
                         }}
                         id="active"
