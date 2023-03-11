@@ -7,7 +7,10 @@ import { Label } from "~/components/UI/Label";
 import { Input } from "~/components/UI/Input";
 import { Checkbox } from "~/components/UI/Checkbox";
 import { Button } from "~/components/UI/Button";
+import { useState } from "react";
+import { Toggle } from "~/components/UI/Toggle";
 import { Editor } from "~/components/Editor";
+import { QuillEditor } from "~/components/Quilljs";
 
 export default function HomePage() {
     const productsQuery = api.products.list.useQuery();
@@ -23,6 +26,8 @@ export default function HomePage() {
     } = useForm<Product>({
         resolver: zodResolver(productCreationSchema),
     });
+
+    const [isManagedStock, setIsManagedStock] = useState(false);
 
     async function onSubmit(data: Product) {
         await createProductMutation.mutateAsync({ product: data });
@@ -40,22 +45,53 @@ export default function HomePage() {
             </ul>
 
             <form
-                className="flex flex-col items-center gap-4"
+                className="mx-auto flex max-w-3xl flex-col items-center gap-4 bg-white p-4"
                 onSubmit={handleSubmit(onSubmit)}
             >
-                <div className="grid w-full max-w-4xl items-center gap-1.5">
-                    <Label required htmlFor="name">
-                        Name
-                    </Label>
+                <span className="self-start border-b text-left text-sm font-medium">
+                    Detalhes
+                </span>
+                <Input
+                    type="text"
+                    id="name"
+                    placeholder="Nome (Obrigatório)"
+                    {...register("name")}
+                >
+                    Nome{" "}
+                    <span className="text-xs text-slate-500">
+                        (Obrigatório)
+                    </span>
+                </Input>
+
+                <div className="flex w-full gap-2">
                     <Input
                         type="text"
-                        id="name"
-                        placeholder="Name"
-                        {...register("name")}
-                    />
+                        id="sku"
+                        placeholder="SKU"
+                        {...register("sku")}
+                    >
+                        SKU
+                    </Input>
+                    <Input
+                        type="number"
+                        id="in_stock"
+                        placeholder="Quantia em estoque"
+                        disabled={!isManagedStock}
+                        {...register("inStock", { valueAsNumber: true })}
+                    >
+                        Quantia em estoque
+                    </Input>
                 </div>
+                <Toggle
+                    checked={isManagedStock}
+                    setChecked={setIsManagedStock}
+                    className="self-end"
+                    textSide="left"
+                >
+                    <span className="text-xs">Gerenciado</span>
+                </Toggle>
 
-                <div className="grid w-full max-w-4xl items-center gap-1.5">
+                {/* <div className="grid w-full items-center gap-1.5">
                     <Label required htmlFor="description">
                         Descrição{" "}
                     </Label>
@@ -64,43 +100,22 @@ export default function HomePage() {
                         register={register}
                         setValue={setValue}
                     />
-                </div>
+                </div> */}
 
-                <div className="grid w-full max-w-4xl items-center gap-1.5">
-                    <Label required htmlFor="price">
-                        Preço
-                    </Label>
-                    <Input
-                        type="number"
-                        id="price"
-                        placeholder="Preço"
-                        {...register("price", {
-                            valueAsNumber: true,
-                        })}
-                    />
-                </div>
+                <QuillEditor />
 
-                <div className="grid w-full max-w-4xl items-center gap-1.5">
-                    <Label htmlFor="sku">SKU</Label>
-                    <Input
-                        type="text"
-                        id="sku"
-                        placeholder="SKU"
-                        {...register("sku")}
-                    />
-                </div>
+                <Input
+                    type="number"
+                    id="price"
+                    placeholder="Preço"
+                    {...register("price", {
+                        valueAsNumber: true,
+                    })}
+                >
+                    Preço
+                </Input>
 
-                <div className="grid w-full max-w-4xl items-center gap-1.5">
-                    <Label htmlFor="in_stock">Em estoque</Label>
-                    <Input
-                        type="number"
-                        id="in_stock"
-                        placeholder="Quantia em estoque"
-                        {...register("inStock", { valueAsNumber: true })}
-                    />
-                </div>
-
-                <div className="flex w-full max-w-4xl items-center gap-1.5">
+                <div className="flex w-full items-center gap-1.5">
                     <Checkbox
                         controllerProps={{
                             name: "active",
@@ -118,7 +133,6 @@ export default function HomePage() {
                         </p>
                     )}
                 </div>
-
                 <Button type="submit">Create</Button>
             </form>
         </div>
