@@ -1,7 +1,11 @@
 import { useEffect, useState } from "react";
 import { cn } from "~/utils/cn";
 import ReactCurrencyInput from "react-currency-input-field";
-import type { FieldValues, UseFormRegister, UseFormSetValue } from "react-hook-form";
+import type {
+    FieldValues,
+    UseFormRegister,
+    UseFormSetValue,
+} from "react-hook-form";
 import { type Product } from "~/schemas/products";
 
 export type InputProps<T extends FieldValues> =
@@ -23,7 +27,7 @@ export function CurrencyInput({
 
     useEffect(() => {
         register(name, { valueAsNumber: true });
-    }, [name,register]);
+    }, [name, register]);
 
     return (
         <div className="relative w-full">
@@ -31,14 +35,15 @@ export function CurrencyInput({
                 intlConfig={{ locale: "pt-BR", currency: "BRL" }}
                 name={name}
                 className={cn(
-                    "peer block w-full appearance-none rounded border bg-white px-2.5 pb-2.5 pt-5 text-sm text-slate-900 drop-shadow transition-colors hover:border-slate-500 focus:border-slate-500 focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 disabled:pointer-events-none disabled:opacity-60 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:focus:ring-slate-400 dark:focus:ring-offset-slate-900",
+                    "peer block w-full appearance-none rounded border bg-white px-2.5 pb-2.5 pt-5 text-sm text-slate-900 drop-shadow transition-colors  disabled:pointer-events-none disabled:opacity-60 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:hover:bg-slate-800 dark:hover:text-slate-100 default-focus",
                     className
                 )}
                 placeholder=" "
                 value={value}
                 onValueChange={(value) => {
+                    if (!value) return;
                     _setValue(value);
-                    setValue(name, value!);
+                    setValue(name, value);
                 }}
             />
             <label

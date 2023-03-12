@@ -2,7 +2,6 @@ const { fontFamily } = require("tailwindcss/defaultTheme");
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-    darkMode: ["class", '[data-theme="dark"]'],
     content: ["./src/**/*.{ts,tsx}"],
     theme: {
         extend: {
@@ -23,6 +22,16 @@ module.exports = {
                 "accordion-down": "accordion-down 0.2s ease-out",
                 "accordion-up": "accordion-up 0.2s ease-out",
             },
+            colors: {
+                neutral: "#e5e7eb",
+                "neutral-dark": "#27272a",
+                base: "#FFFFFF",
+                "base-dark": "#18181b",
+                primary: "#4A6C6F",
+                "primary-emphasis": "#3d595c",
+                secondary: "#846075",
+                "secondary-emphasis": "#5a3d3d",
+            }
         },
     },
     plugins: [

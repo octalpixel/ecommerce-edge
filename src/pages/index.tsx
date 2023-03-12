@@ -11,6 +11,7 @@ import { useState } from "react";
 import { Toggle } from "~/components/UI/Toggle";
 import { Editor } from "~/components/Editor";
 import {CurrencyInput} from "~/components/CurrencyInput";
+import { Textarea } from "~/components/UI/Textarea";
 
 export default function HomePage() {
     const productsQuery = api.products.list.useQuery();
@@ -48,7 +49,7 @@ export default function HomePage() {
             </ul>
 
             <form
-                className="mx-auto flex max-w-3xl flex-col items-center gap-4 bg-white p-4"
+                className="mx-auto flex max-w-3xl flex-col items-center gap-4 bg-base dark:bg-base-dark rounded drop-shadow-lg p-4"
                 onSubmit={handleSubmit(onSubmit)}
             >
                 <span className="self-start border-b text-left text-sm font-medium">
@@ -125,7 +126,7 @@ export default function HomePage() {
                     {Object.entries(errors).map(([key, value]) => (
                         <span key={key}>{key}{value.message}</span>
                     ))}
-                <Button type="submit">Create</Button>
+                <Button type="submit" >Create</Button>
             </form>
         </div>
     );

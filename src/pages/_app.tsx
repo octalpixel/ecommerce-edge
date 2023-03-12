@@ -9,7 +9,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 const MyApp: AppType = ({ Component, pageProps }) => {
     return (
-        <div className={inter.className}>
+        <div className={inter.className} >
             <ClerkProvider
                 appearance={{
                     baseTheme: dark,

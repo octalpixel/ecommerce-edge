@@ -2,7 +2,11 @@ import type { Product } from "~/schemas/products";
 import clsx from "clsx";
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
-import type { FieldValues, UseFormRegister, UseFormSetValue } from "react-hook-form";
+import type {
+    FieldValues,
+    UseFormRegister,
+    UseFormSetValue,
+} from "react-hook-form";
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 import "react-quill/dist/quill.bubble.css";
 
@@ -28,7 +32,14 @@ export function Editor({ name, register, setValue }: EditorProps<Product>) {
     }, [name, register]);
 
     return (
-        <div className="relative z-[999] h-48 w-full rounded border bg-white shadow-md">
+        <div
+            className={clsx(
+                "relative z-[999] h-48 w-full rounded border dark:border-zinc-700 bg-base dark:bg-base-dark dark:text-slate-100 shadow-md",
+                {
+                    "outline outline-2 outline-primary outline-offset-2": isFocused,
+                }
+            )}
+        >
             <span
                 className={clsx(
                     "absolute top-4 left-2 text-sm text-slate-700 transition-all duration-300",
@@ -41,6 +52,29 @@ export function Editor({ name, register, setValue }: EditorProps<Product>) {
                 Descrição
             </span>
             <ReactQuill
+                //make tab key focus next input
+                onKeyDown={(e: KeyboardEvent) => {
+                    if (e.key === "Tab") {
+                        let nextSibling: HTMLDivElement | undefined = undefined;
+
+                        //get the next div that contains inputs
+                        const target = e.target as HTMLDivElement;
+                        const parentDiv =
+                            target?.parentElement?.parentElement?.parentElement;
+                        if (!parentDiv) return;
+
+                        nextSibling =
+                            parentDiv.nextElementSibling as HTMLDivElement;
+
+                        if (!nextSibling) return;
+
+                        const input = nextSibling.querySelector("input");
+
+                        if (!input) return;
+
+                        input.focus();
+                    }
+                }}
                 theme="bubble"
                 className="h-full"
                 value={value}
