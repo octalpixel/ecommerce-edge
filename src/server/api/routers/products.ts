@@ -1,13 +1,13 @@
 import { z } from "zod";
 import { productCreationSchema } from "~/schemas/products";
 import { seoCreationSchema } from "~/schemas/seo";
-import { adminProcedure, createTRPCRouter } from "~/server/api/trpc";
+import { adminProcedure, createTRPCRouter, publicProcedure } from "~/server/api/trpc";
 import { ulidFactory } from "ulid-workers";
 
 const ulid = ulidFactory();
 
 export const productsRouter = createTRPCRouter({
-    list: adminProcedure.query(async ({ ctx }) => {
+    list: publicProcedure.query(async ({ ctx }) => {
         const { db } = ctx;
         const products = await db.selectFrom("Product").selectAll().execute();
         return products;

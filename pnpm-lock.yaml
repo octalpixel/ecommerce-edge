@@ -39,6 +39,7 @@ specifiers:
   prettier-plugin-tailwindcss: ^0.2.1
   prisma: ^4.9.0
   react: 18.2.0
+  react-currency-input-field: ^3.6.10
   react-dom: 18.2.0
   react-hook-form: ^7.43.4
   react-mde: ^12.0.8
@@ -75,6 +76,7 @@ dependencies:
   markdown-to-jsx: 7.1.9_react@18.2.0
   next: 13.2.3_biqbaboplfbrettd7655fr4n2y
   react: 18.2.0
+  react-currency-input-field: 3.6.10_react@18.2.0
   react-dom: 18.2.0_react@18.2.0
   react-hook-form: 7.43.4_react@18.2.0
   react-mde: 12.0.8
@@ -3140,6 +3142,14 @@ packages:
       extend: 3.0.2
       parchment: 1.1.4
       quill-delta: 3.6.3
+    dev: false
+
+  /react-currency-input-field/3.6.10_react@18.2.0:
+    resolution: {integrity: sha512-KRAJJaLujarBTLlEVbznsUxQ56+Qyqwoe5w9DnGxmsGnHv4ycQRpRkuuCDfF9BcXHmegzsOXesfIGpW7Cw9mTQ==}
+    peerDependencies:
+      react: ^16.9.0 || ^17.0.0 || ^18.0.0
+    dependencies:
+      react: 18.2.0
     dev: false
 
   /react-dom/18.2.0_react@18.2.0:

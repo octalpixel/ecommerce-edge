@@ -10,7 +10,7 @@ import { Button } from "~/components/UI/Button";
 import { useState } from "react";
 import { Toggle } from "~/components/UI/Toggle";
 import { Editor } from "~/components/Editor";
-import { QuillEditor } from "~/components/Quilljs";
+import {CurrencyInput} from "~/components/CurrencyInput";
 
 export default function HomePage() {
     const productsQuery = api.products.list.useQuery();
@@ -22,8 +22,11 @@ export default function HomePage() {
         formState: { errors },
         control,
         setValue,
-        getValues,
     } = useForm<Product>({
+        defaultValues:{
+            inStock: null,
+            active:false
+        },
         resolver: zodResolver(productCreationSchema),
     });
 
@@ -82,6 +85,7 @@ export default function HomePage() {
                         Quantia em estoque
                     </Input>
                 </div>
+
                 <Toggle
                     checked={isManagedStock}
                     setChecked={setIsManagedStock}
@@ -91,29 +95,19 @@ export default function HomePage() {
                     <span className="text-xs">Gerenciado</span>
                 </Toggle>
 
-                {/* <div className="grid w-full items-center gap-1.5">
-                    <Label required htmlFor="description">
-                        Descrição{" "}
-                    </Label>
-                    <Editor
-                        name="description"
-                        register={register}
-                        setValue={setValue}
-                    />
-                </div> */}
 
-                <QuillEditor />
+                <Editor name="description" register={register} setValue={setValue}/>
 
-                <Input
+                <CurrencyInput
                     type="number"
                     id="price"
                     placeholder="Preço"
-                    {...register("price", {
-                        valueAsNumber: true,
-                    })}
+                    name="price"
+                    register={register}
+                    setValue={setValue}
                 >
                     Preço
-                </Input>
+                </CurrencyInput>
 
                 <div className="flex w-full items-center gap-1.5">
                     <Checkbox
@@ -127,12 +121,10 @@ export default function HomePage() {
                         {...register("active")}
                     />
                     <Label htmlFor="active">Ativo</Label>
-                    {errors.active && (
-                        <p className="text-sm text-red-500">
-                            {errors.active.message}
-                        </p>
-                    )}
                 </div>
+                    {Object.entries(errors).map(([key, value]) => (
+                        <span key={key}>{key}{value.message}</span>
+                    ))}
                 <Button type="submit">Create</Button>
             </form>
         </div>
