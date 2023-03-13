@@ -4,6 +4,7 @@ import "~/styles/globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import { dark } from "@clerk/themes";
 import { Inter } from "next/font/google";
+import { Navbar } from "~/components/Navbar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,6 +16,7 @@ const MyApp: AppType = ({ Component, pageProps }) => {
                     baseTheme: dark,
                 }}
             >
+                <Navbar/>
                 <Component {...pageProps} />
             </ClerkProvider>
         </div>

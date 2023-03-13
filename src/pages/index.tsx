@@ -62,7 +62,7 @@ export default function HomePage() {
                     {...register("name")}
                 >
                     Nome{" "}
-                    <span className="text-xs text-slate-500">
+                    <span className="text-xs text-slate-300">
                         (Obrigatório)
                     </span>
                 </Input>

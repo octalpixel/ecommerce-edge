@@ -35,7 +35,7 @@ export function CurrencyInput({
                 intlConfig={{ locale: "pt-BR", currency: "BRL" }}
                 name={name}
                 className={cn(
-                    "peer block w-full appearance-none rounded border bg-white px-2.5 pb-2.5 pt-5 text-sm text-slate-900 drop-shadow transition-colors  disabled:pointer-events-none disabled:opacity-60 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:hover:bg-slate-800 dark:hover:text-slate-100 default-focus",
+                    "peer block w-full appearance-none rounded border dark:border-zinc-600 bg-white px-2.5 pb-2.5 pt-5 text-sm drop-shadow transition-colors disabled:pointer-events-none disabled:opacity-60 dark:bg-neutral-dark default-focus",
                     className
                 )}
                 placeholder=" "
@@ -48,7 +48,7 @@ export function CurrencyInput({
             />
             <label
                 htmlFor={name}
-                className="absolute top-4 left-3 z-10 origin-[0] -translate-y-3 scale-75 transform text-sm text-slate-700 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-3 peer-focus:scale-75 peer-disabled:opacity-50 dark:text-slate-400"
+                className="absolute top-4 left-3 z-10 origin-[0] -translate-y-3 scale-75 transform text-sm duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-3 peer-focus:scale-75 peer-disabled:opacity-50"
             >
                 {children}
             </label>

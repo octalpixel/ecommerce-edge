@@ -20,7 +20,7 @@ const Checkbox = React.forwardRef<
                 onCheckedChange={field.onChange}
                 ref={ref}
                 className={cn(
-                    "peer h-4 w-4 shrink-0 rounded-sm border border-slate-300  disabled:cursor-not-allowed disabled:opacity-50 dark:border-slate-700 dark:text-slate-50 default-focus",
+                    "peer h-4 w-4 shrink-0 rounded-sm border border-slate-300 disabled:cursor-not-allowed disabled:opacity-50 dark:border-zinc-600 default-focus",
                     className
                 )}
                 {...props}

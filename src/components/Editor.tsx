@@ -34,7 +34,7 @@ export function Editor({ name, register, setValue }: EditorProps<Product>) {
     return (
         <div
             className={clsx(
-                "relative z-[999] h-48 w-full rounded border dark:border-zinc-700 bg-base dark:bg-base-dark dark:text-slate-100 shadow-md",
+                "relative z-[999] h-48 w-full rounded border dark:border-zinc-600 bg-neutral dark:bg-neutral-dark dark:text-slate-100 shadow-md",
                 {
                     "outline outline-2 outline-primary outline-offset-2": isFocused,
                 }
@@ -42,7 +42,7 @@ export function Editor({ name, register, setValue }: EditorProps<Product>) {
         >
             <span
                 className={clsx(
-                    "absolute top-4 left-2 text-sm text-slate-700 transition-all duration-300",
+                    "absolute top-4 left-3 text-sm transition-all duration-300",
                     {
                         "translate-y-[-100%] translate-x-[-10%] scale-75":
                             isFocused || hasContent,
