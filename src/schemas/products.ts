@@ -10,7 +10,11 @@ export type Product = Omit<
 export const productCreationSchema = implement<Product>().with({
     name: z.string().min(1).max(191),
     description: z.string().min(1).max(2000),
-    price: z.number().positive(),
+    //@ts-expect-error zod-implements does not support custom transforms
+    price: z
+        .string()
+        .transform((s) => parseFloat(s.replace(/,/g, ".")))
+        .or(z.number()),
     active: z.boolean(),
     inStock: z.number().min(0).nullable(),
     sku: z.string().min(1).max(191).nullable(),
@@ -20,7 +24,11 @@ export const productUpdateSchema = implement<Product & { id: string }>().with({
     id: z.string().min(1).max(191),
     name: z.string().min(1).max(191),
     description: z.string().min(1).max(2000),
-    price: z.number().positive(),
+    //@ts-expect-error zod-implements does not support custom transforms
+    price: z
+        .string()
+        .transform((s) => parseFloat(s.replace(/,/g, ".")))
+        .or(z.number()),
     active: z.boolean(),
     inStock: z.number().min(0).nullable(),
     sku: z.string().min(1).max(191).nullable(),

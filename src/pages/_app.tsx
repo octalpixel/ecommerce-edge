@@ -5,19 +5,21 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { dark } from "@clerk/themes";
 import { Inter } from "next/font/google";
 import { Navbar } from "~/components/Navbar";
+import { Toaster } from "~/components/UI/Toaster";
 
 const inter = Inter({ subsets: ["latin"] });
 
 const MyApp: AppType = ({ Component, pageProps }) => {
     return (
-        <div className={inter.className} >
+        <div className={inter.className}>
             <ClerkProvider
                 appearance={{
                     baseTheme: dark,
                 }}
             >
-                <Navbar/>
+                <Navbar />
                 <Component {...pageProps} />
+                <Toaster />
             </ClerkProvider>
         </div>
     );

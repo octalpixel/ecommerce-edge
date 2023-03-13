@@ -34,7 +34,7 @@ export function Editor({ name, register, setValue }: EditorProps<Product>) {
     return (
         <div
             className={clsx(
-                "relative z-[999] h-48 w-full rounded border dark:border-zinc-600 bg-neutral dark:bg-neutral-dark dark:text-slate-100 shadow-md",
+                "relative z-[999] h-48 w-full rounded border dark:border-zinc-600 bg-base dark:bg-neutral-dark shadow-md",
                 {
                     "outline outline-2 outline-primary outline-offset-2": isFocused,
                 }

@@ -26,7 +26,7 @@ export function CurrencyInput({
     const [value, _setValue] = useState<string | undefined>(undefined);
 
     useEffect(() => {
-        register(name, { valueAsNumber: true });
+        register(name);
     }, [name, register]);
 
     return (

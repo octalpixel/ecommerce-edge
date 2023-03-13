@@ -1,18 +1,21 @@
 import { forwardRef } from "react";
-import {cn} from "~/utils/cn";
+import { cn } from "~/utils/cn";
 
 export type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
     children: React.ReactNode;
 };
 
 const Input = forwardRef<HTMLInputElement, InputProps>(
-    ({ className,children, ...props }, ref) => {
+    ({ className, children, ...props }, ref) => {
         return (
             <div className="relative w-full">
                 <input
                     type="text"
                     id={props.id}
-                    className={cn("peer block w-full appearance-none rounded drop-shadow border dark:border-zinc-600 bg-white px-2.5 pb-2.5 pt-5 text-sm transition-colors disabled:opacity-60 disabled:pointer-events-none dark:bg-neutral-dark default-focus", className)}
+                    className={cn(
+                        "default-focus peer block w-full appearance-none rounded border px-2.5 pb-2.5 pt-5 text-sm drop-shadow transition-colors disabled:pointer-events-none disabled:opacity-60 dark:border-zinc-600 bg-base dark:bg-neutral-dark",
+                        className
+                    )}
                     {...props}
                     placeholder=" "
                     ref={ref}
