@@ -13,7 +13,8 @@ export function ProductList(props: ProductListProps) {
         undefined,
         {
             initialData: props.initialData,
-            staleTime: 1000 * 60, // 1 minute
+            staleTime: Infinity,
+            refetchOnWindowFocus: false,
             refetchOnMount: false,
         }
     );

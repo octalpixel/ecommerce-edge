@@ -17,12 +17,14 @@ import { useToast } from "~/hooks/use-toast";
 
 export default function AddProductPage() {
     const { toast } = useToast();
+    const ctx = api.useContext();
 
     const createProductMutation = api.products.create.useMutation({
-        onSuccess: () => {
+        onSuccess: async () => {
             toast({
                 title: "Produto criado com sucesso",
             });
+            await ctx.products.list.invalidate();
         },
         onError: () => {
             toast({
@@ -138,7 +140,6 @@ export default function AddProductPage() {
                     name="price"
                     register={register}
                     setValue={setValue}
-                    
                 >
                     Preço
                 </CurrencyInput>
