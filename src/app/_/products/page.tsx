@@ -1,6 +1,8 @@
 import { db } from "~/server/db";
 import { listProducts } from "~/server/services/products";
 
+export const fetchCache = "force-no-store";
+
 export default async function ProductsPage() {
     const products = await listProducts(db);
 
