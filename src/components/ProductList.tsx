@@ -15,7 +15,6 @@ export function ProductList(props: ProductListProps) {
             initialData: props.initialData,
             staleTime: Infinity,
             refetchOnWindowFocus: false,
-            refetchOnMount: false,
         }
     );
     return (
