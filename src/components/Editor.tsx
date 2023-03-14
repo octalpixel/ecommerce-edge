@@ -1,3 +1,5 @@
+"use client"
+
 import type { Product } from "~/schemas/products";
 import clsx from "clsx";
 import dynamic from "next/dynamic";

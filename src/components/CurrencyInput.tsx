@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useState } from "react";
 import { cn } from "~/utils/cn";
 import ReactCurrencyInput from "react-currency-input-field";
@@ -35,7 +37,7 @@ export function CurrencyInput({
                 intlConfig={{ locale: "pt-BR", currency: "BRL" }}
                 name={name}
                 className={cn(
-                    "peer block w-full appearance-none rounded border dark:border-zinc-600 bg-white px-2.5 pb-2.5 pt-5 text-sm drop-shadow transition-colors disabled:pointer-events-none disabled:opacity-60 dark:bg-neutral-dark default-focus",
+                    "default-focus peer block w-full appearance-none rounded border bg-white px-2.5 pb-2.5 pt-5 text-sm drop-shadow transition-colors disabled:pointer-events-none disabled:opacity-60 dark:border-zinc-600 dark:bg-neutral-dark",
                     className
                 )}
                 placeholder=" "

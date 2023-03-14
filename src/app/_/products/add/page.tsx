@@ -1,3 +1,5 @@
+"use client";
+
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import { api } from "~/utils/api";
 import { type Product, productCreationSchema } from "~/schemas/products";
@@ -13,7 +15,7 @@ import { Editor } from "~/components/Editor";
 import { CurrencyInput } from "~/components/CurrencyInput";
 import { useToast } from "~/hooks/use-toast";
 
-export default function HomePage() {
+export default function AddProductPage() {
     const { toast } = useToast();
 
     const createProductMutation = api.products.create.useMutation({
@@ -136,12 +138,7 @@ export default function HomePage() {
                     name="price"
                     register={register}
                     setValue={setValue}
-                    // controllerProps={{
-                    //     name: "price",
-                    //     //@ts-expect-error react-hook-form controller doesnt accept the generic type argument <Product> but this works
-                    //     control,
-                    // }}
-                    // {...register("price") }
+                    
                 >
                     Preço
                 </CurrencyInput>

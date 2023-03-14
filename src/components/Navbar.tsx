@@ -1,4 +1,6 @@
-import { UserButton, useSession, SignInButton } from "@clerk/nextjs";
+"use client";
+
+import { useSession, UserButton,SignInButton } from "@clerk/nextjs";
 
 export function Navbar() {
     const { isSignedIn } = useSession();

@@ -1,15 +1,14 @@
-import { type AppType } from "next/app";
-import { api } from "~/utils/api";
 import "~/styles/globals.css";
-import { ClerkProvider } from "@clerk/nextjs";
+import { ClerkProvider } from "@clerk/nextjs/app-beta";
 import { dark } from "@clerk/themes";
 import { Inter } from "next/font/google";
 import { Navbar } from "~/components/Navbar";
 import { Toaster } from "~/components/UI/Toaster";
+import { TRPCProvider } from "~/utils/api";
 
 const inter = Inter({ subsets: ["latin"] });
 
-const MyApp: AppType = ({ Component, pageProps }) => {
+export default function RootLayout(props: { children: React.ReactNode }) {
     return (
         <div className={inter.className}>
             <ClerkProvider
@@ -17,15 +16,15 @@ const MyApp: AppType = ({ Component, pageProps }) => {
                     baseTheme: dark,
                 }}
             >
-                <Navbar />
-                <Component {...pageProps} />
-                <Toaster />
+                <TRPCProvider>
+                    <Navbar />
+                    {props.children}
+                    <Toaster />
+                </TRPCProvider>
             </ClerkProvider>
         </div>
     );
-};
-
-export default api.withTRPC(MyApp);
+}
 
 export const config = {
     runtime: "experimental-edge",
