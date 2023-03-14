@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 /**
  * This is the client-side entrypoint for your tRPC API. It is used to create the `api` object which
@@ -6,7 +6,7 @@
  *
  * We also create a few inference helpers for input and output types.
  */
-import { QueryClient,QueryClientProvider } from "@tanstack/react-query";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { httpBatchLink, loggerLink } from "@trpc/client";
 import { createTRPCReact } from "@trpc/react-query";
 import { type inferRouterInputs, type inferRouterOutputs } from "@trpc/server";

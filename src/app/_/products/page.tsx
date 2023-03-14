@@ -1,19 +1,27 @@
+import { appRouter } from "~/server/api/root";
 import { db } from "~/server/db";
-import { listProducts } from "~/server/services/products";
+import { ProductList } from "~/components/ProductList";
 
 export const fetchCache = "force-no-store";
 
 export default async function ProductsPage() {
-    const products = await listProducts(db);
+    // const ssg = createProxySSGHelpers({
+    //     router: appRouter,
+    //     ctx: createInnerTRPCContext({
+    //         session: null,
+    //     }),
+    //     transformer: superjson,
+    // });
+
+    // await ssg.products.list.prefetch();
+
+    const caller = appRouter.createCaller({ db, session: null });
+    const initialData = await caller.products.list();
 
     return (
         <div>
             <h1>Products</h1>
-            <ul>
-                {products.map((product) => (
-                    <li key={product.id}>{product.name}</li>
-                ))}
-            </ul>
+            <ProductList initialData={initialData} />
         </div>
     );
 }

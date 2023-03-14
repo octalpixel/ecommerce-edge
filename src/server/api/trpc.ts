@@ -21,7 +21,7 @@ import { initTRPC, TRPCError } from "@trpc/server";
 import superjson from "superjson";
 
 type CreateContextOptions = {
-    session: ReturnType<typeof getAuth>;
+    session: ReturnType<typeof getAuth> | null;
 };
 
 /**
