@@ -8,21 +8,28 @@ import { TRPCProvider } from "~/utils/api";
 
 const inter = Inter({ subsets: ["latin"] });
 
+export const metadata = {
+    title: "Next.js 13 AppDir (Edge Runtime) + Clerk + TRPC",
+    description: "Next.js 13 AppDir (Edge Runtime) + Clerk + TRPC",
+};
+
 export default function RootLayout(props: { children: React.ReactNode }) {
     return (
-        <div className={inter.className}>
+        <html lang="pt-BR">
             <ClerkProvider
                 appearance={{
                     baseTheme: dark,
                 }}
             >
                 <TRPCProvider>
-                    <Navbar />
-                    {props.children}
-                    <Toaster />
+                    <body className={inter.className}>
+                        <Navbar />
+                        <main>{props.children}</main>
+                        <Toaster />
+                    </body>
                 </TRPCProvider>
             </ClerkProvider>
-        </div>
+        </html>
     );
 }
 
