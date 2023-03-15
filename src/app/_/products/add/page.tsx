@@ -11,9 +11,10 @@ import { Checkbox } from "~/components/UI/Checkbox";
 import { Button } from "~/components/UI/Button";
 import { useState } from "react";
 import { Toggle } from "~/components/UI/Toggle";
-import { Editor } from "~/components/Editor";
-import { CurrencyInput } from "~/components/CurrencyInput";
+import { Editor } from "~/components/CreateProduct/Editor";
+import { CurrencyInput } from "~/components/CreateProduct/CurrencyInput";
 import { useToast } from "~/hooks/use-toast";
+import ImageUploader from "~/components/CreateProduct/ImageUploader";
 
 export default function AddProductPage() {
     const { toast } = useToast();
@@ -69,12 +70,7 @@ export default function AddProductPage() {
                 <span className="self-start border-b text-left text-sm font-medium">
                     Detalhes
                 </span>
-                <Input
-                    type="text"
-                    id="name"
-                    placeholder="Nome (Obrigatório)"
-                    {...register("name")}
-                >
+                <Input type="text" id="name" {...register("name")}>
                     Nome{" "}
                     <span className="text-xs text-zinc-500 dark:text-zinc-400">
                         (Obrigatório)
@@ -141,7 +137,10 @@ export default function AddProductPage() {
                     register={register}
                     setValue={setValue}
                 >
-                    Preço
+                    Preço{" "}
+                    <span className="text-xs text-zinc-500 dark:text-zinc-400">
+                        (Obrigatório)
+                    </span>
                 </CurrencyInput>
                 {errors.price && (
                     <p className="-mt-2 text-xs text-red-500">

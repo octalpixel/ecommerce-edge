@@ -1,6 +1,6 @@
 import { appRouter } from "~/server/api/root";
 import { db } from "~/server/db";
-import { ProductList } from "~/components/ProductList";
+import { ProductList } from "~/components/CreateProduct/ProductList";
 
 export const fetchCache = "force-no-store";
 

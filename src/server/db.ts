@@ -1,6 +1,7 @@
 import type {
     Product,
     Media,
+    Image,
     SEO,
     Variant,
     VariantGroup,
@@ -17,6 +18,7 @@ import { env } from "~/env.mjs";
 export interface Database {
     Product: Product;
     Media: Media;
+    Image: Image;
     SEO: SEO;
     Variant: Variant;
     VariantGroup: VariantGroup;
