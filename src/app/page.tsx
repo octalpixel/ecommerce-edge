@@ -5,3 +5,6 @@ export default function HomePage() {
         </div>
     );
 }
+
+export const runtime = "experimental-edge";
+export const preferredRegion = "home";
