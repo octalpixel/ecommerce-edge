@@ -35,10 +35,9 @@ export default async function handler(req: NextRequest) {
             //@ts-expect-error res exists
             if (ctx?.res && allPublic && allOk && isQuery) {
                 // cache request for 1 day + revalidate once every second
-                const ONE_DAY_IN_SECONDS = 60 * 60 * 24;
                 return {
                     headers: {
-                        'cache-control': `s-maxage=1, stale-while-revalidate=${ONE_DAY_IN_SECONDS}`,
+                        'Cache-Control': `s-maxage=60, stale-while-revalidate`,
                     },
                 };
             }
