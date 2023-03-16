@@ -7,7 +7,7 @@ export default async function CachedPage() {
 
     return (
         <div>
-            Last Cache date = {new Date(lastUpdated).toLocaleDateString()}
+            Last Cache date = {new Date(lastUpdated).toLocaleTimeString()}
         </div>
     );
 }
