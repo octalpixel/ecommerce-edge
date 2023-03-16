@@ -9,11 +9,11 @@ export type Product = Omit<
 
 export const productCreationSchema = implement<Product>().with({
     name: z.string().min(1).max(191),
-    //@ts-expect-error zod-implements does not support custom transforms
+    //@ts-expect-error undefined works aswell
     description: z
         .string()
         .max(2000)
-        .or(z.undefined().transform(() => null)),
+        .nullish(),
     //@ts-expect-error zod-implements does not support custom transforms
     price: z
         .string()
@@ -27,11 +27,11 @@ export const productCreationSchema = implement<Product>().with({
 export const productUpdateSchema = implement<Product & { id: string }>().with({
     id: z.string().min(1).max(191),
     name: z.string().min(1).max(191),
-    //@ts-expect-error zod-implements does not support custom transforms
+    //@ts-expect-error undefined works aswell
     description: z
         .string()
         .max(2000)
-        .or(z.undefined().transform(() => null)),
+        .nullish(),
     //@ts-expect-error zod-implements does not support custom transforms
     price: z
         .string()
