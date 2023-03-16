@@ -1,15 +1,15 @@
-import { appRouter } from "~/server/api/root"
-import { db } from "~/server/db"
+import { api } from "~/utils/api";
 
-export default async function CachedPage() {
-    const caller = appRouter.createCaller({ db, session: null })
-    const { lastUpdated } = await caller.public.slowQueryCached()
+export default function CachedPage() {
+    const { data } = api.public.slowQueryCached.useQuery();
 
     return (
         <div>
-            Last Cache date = {new Date(lastUpdated).toLocaleTimeString()}
+            Last Cache date ={" "}
+            {data && new Date(data.lastUpdated).toLocaleTimeString()}
         </div>
-    )
+    );
 }
-export const runtime = "experimental-edge"
-export const preferredRegion = "home"
+
+export const runtime = "experimental-edge";
+export const preferredRegion = "home";
