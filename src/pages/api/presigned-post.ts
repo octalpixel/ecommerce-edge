@@ -1,20 +1,24 @@
 import { createPresignedPost } from "@aws-sdk/s3-presigned-post";
-import { type NextRequest, NextResponse } from "next/server";
 import { env } from "~/env.mjs";
 import { s3Client } from "~/server/s3";
 import { getAuth } from "@clerk/nextjs/server";
 import { db } from "~/server/db";
 import { ulidFactory } from "ulid-workers";
+import type { NextApiRequest, NextApiResponse } from "next";
 
 const ulid = ulidFactory();
 
-export async function POST(req: NextRequest) {
+export async function handler(req: NextApiRequest, res: NextApiResponse) {
+    if (req.method !== "POST") {
+        res.status(405);
+        return res.json({ error: "METHOD_NOT_ALLOWED" });
+    }
+
     const { userId } = getAuth(req);
 
     if (!userId) {
-        return new NextResponse(JSON.stringify({ error: "UNAUTHORIZED" }), {
-            status: 401,
-        });
+        res.status(401);
+        return res.json({ error: "UNAUTHORIZED" });
     }
 
     const isUserAdmin = Boolean(
@@ -26,9 +30,8 @@ export async function POST(req: NextRequest) {
     );
 
     if (!isUserAdmin) {
-        return new NextResponse(JSON.stringify({ error: "UNAUTHORIZED" }), {
-            status: 401,
-        });
+        res.status(401);
+        return res.json({ error: "UNAUTHORIZED" });
     }
 
     const imageId = ulid();
@@ -49,12 +52,8 @@ export async function POST(req: NextRequest) {
     });
 
     if (!url || !fields) {
-        return new NextResponse(
-            JSON.stringify({ error: "Could not generate presigned post" }),
-            {
-                status: 500,
-            }
-        );
+        res.status(500);
+        return res.json({ error: "Could not generate presigned post" });
     }
 
     await db
@@ -68,9 +67,10 @@ export async function POST(req: NextRequest) {
         })
         .execute();
 
-    return new NextResponse(JSON.stringify({ url, fields }), {
-        status: 200,
-    });
+    res.status(200);
+    return res.json({ url, fields })
 }
 
-export const runtime = "nodejs";
+export const config = {
+    runtime: "nodejs"
+} 
