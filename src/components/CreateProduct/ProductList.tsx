@@ -1,22 +1,14 @@
-"use client";
+import Link from "next/link"
+import { api, type RouterOutputs } from "~/utils/api"
 
-import Link from "next/link";
-import { api, type RouterOutputs } from "~/utils/api";
-type Product = RouterOutputs["public"]["listProducts"][number];
-
-type ProductListProps = {
-    initialData?: Product[];
-};
-
-export function ProductList(props: ProductListProps) {
+export function ProductList() {
     const { data: products, isLoading } = api.public.listProducts.useQuery(
         undefined,
         {
-            initialData: props.initialData,
             staleTime: Infinity,
             refetchOnWindowFocus: false,
         }
-    );
+    )
     return (
         <div>
             {isLoading ? (
@@ -36,5 +28,5 @@ export function ProductList(props: ProductListProps) {
                 </ul>
             )}
         </div>
-    );
+    )
 }

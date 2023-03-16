@@ -1,7 +1,7 @@
-import { createTRPCRouter, protectedProcedure } from "../trpc";
+import { createTRPCRouter, protectedProcedure } from "../trpc"
 
 export const authRouter = createTRPCRouter({
     secretMessage: protectedProcedure.query(() => {
-        return `This is a Secret Message`;
+        return `This is a Secret Message`
     }),
-});
+})

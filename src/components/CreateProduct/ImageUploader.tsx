@@ -1,5 +1,5 @@
-"use client";
+"use client"
 
 export default function ImageUploader() {
-    return <div>ImageUploader</div>;
+    return <div>ImageUploader</div>
 }

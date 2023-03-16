@@ -2,12 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
-html,body {
-    @apply bg-neutral dark:bg-neutral-dark text-zinc-800 dark:text-zinc-100;
+html,
+body {
+    @apply bg-neutral text-zinc-800 dark:bg-neutral-dark dark:text-zinc-100;
 }
 
 .default-focus {
-    @apply focus:outline focus:outline-2 focus:outline-primary-emphasis dark:focus:outline-primary focus:outline-offset-2;
+    @apply focus:outline focus:outline-2 focus:outline-offset-2 focus:outline-primary-emphasis dark:focus:outline-primary;
 }
 
 /* Hide the number input arrows */

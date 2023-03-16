@@ -1,10 +1,10 @@
-"use client";
-import { useDropzone } from "react-dropzone";
+"use client"
+import { useDropzone } from "react-dropzone"
 
-type _File = File & { path: string };
+type _File = File & { path: string }
 
 export function Dropzone() {
-    const { acceptedFiles, getRootProps, getInputProps } = useDropzone();
+    const { acceptedFiles, getRootProps, getInputProps } = useDropzone()
     return (
         <div>
             <div
@@ -28,5 +28,5 @@ export function Dropzone() {
                 </ul>
             </div>
         </div>
-    );
+    )
 }

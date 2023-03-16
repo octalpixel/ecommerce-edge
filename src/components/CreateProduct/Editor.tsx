@@ -1,44 +1,45 @@
 "use client"
 
-import type { Product } from "~/schemas/products";
-import clsx from "clsx";
-import dynamic from "next/dynamic";
-import { useEffect, useState } from "react";
+import type { Product } from "~/schemas/products"
+import clsx from "clsx"
+import dynamic from "next/dynamic"
+import { useEffect, useState } from "react"
 import type {
     FieldValues,
     UseFormRegister,
     UseFormSetValue,
-} from "react-hook-form";
-const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
-import "react-quill/dist/quill.bubble.css";
+} from "react-hook-form"
+const ReactQuill = dynamic(() => import("react-quill"), { ssr: false })
+import "react-quill/dist/quill.bubble.css"
 
-const emptyValues = ["<p><br></p>", "<h1><br></h1>", "<h2><br></h2>"];
+const emptyValues = ["<p><br></p>", "<h1><br></h1>", "<h2><br></h2>"]
 
 type EditorProps<T extends FieldValues> = {
-    name: keyof T;
-    register: UseFormRegister<T>;
-    setValue: UseFormSetValue<T>;
-};
+    name: keyof T
+    register: UseFormRegister<T>
+    setValue: UseFormSetValue<T>
+}
 
 export function Editor({ name, register, setValue }: EditorProps<Product>) {
-    const [value, _setValue] = useState("");
-    const [hasContent, setHasContent] = useState(false);
-    const [isFocused, setIsFocused] = useState(false);
+    const [value, _setValue] = useState("")
+    const [hasContent, setHasContent] = useState(false)
+    const [isFocused, setIsFocused] = useState(false)
 
     useEffect(() => {
-        setHasContent(value.length > 0 && !emptyValues.includes(value));
-    }, [value]);
+        setHasContent(value.length > 0 && !emptyValues.includes(value))
+    }, [value])
 
     useEffect(() => {
-        register(name);
-    }, [name, register]);
+        register(name)
+    }, [name, register])
 
     return (
         <div
             className={clsx(
-                "relative z-[999] h-48 w-full rounded border dark:border-zinc-600 bg-base dark:bg-neutral-dark shadow-md",
+                "relative z-[999] h-48 w-full rounded border bg-base shadow-md dark:border-zinc-600 dark:bg-neutral-dark",
                 {
-                    "outline outline-2 outline-primary outline-offset-2": isFocused,
+                    "outline outline-2 outline-offset-2 outline-primary":
+                        isFocused,
                 }
             )}
         >
@@ -57,36 +58,36 @@ export function Editor({ name, register, setValue }: EditorProps<Product>) {
                 //make tab key focus next input
                 onKeyDown={(e: KeyboardEvent) => {
                     if (e.key === "Tab") {
-                        let nextSibling: HTMLDivElement | undefined = undefined;
+                        let nextSibling: HTMLDivElement | undefined = undefined
 
                         //get the next div that contains inputs
-                        const target = e.target as HTMLDivElement;
+                        const target = e.target as HTMLDivElement
                         const parentDiv =
-                            target?.parentElement?.parentElement?.parentElement;
-                        if (!parentDiv) return;
+                            target?.parentElement?.parentElement?.parentElement
+                        if (!parentDiv) return
 
                         nextSibling =
-                            parentDiv.nextElementSibling as HTMLDivElement;
+                            parentDiv.nextElementSibling as HTMLDivElement
 
-                        if (!nextSibling) return;
+                        if (!nextSibling) return
 
-                        const input = nextSibling.querySelector("input");
+                        const input = nextSibling.querySelector("input")
 
-                        if (!input) return;
+                        if (!input) return
 
-                        input.focus();
+                        input.focus()
                     }
                 }}
                 theme="bubble"
                 className="h-full"
                 value={value}
                 onChange={(value) => {
-                    setValue(name, value);
-                    _setValue(value);
+                    setValue(name, value)
+                    _setValue(value)
                 }}
                 onFocus={() => setIsFocused(true)}
                 onBlur={() => setIsFocused(false)}
             />
         </div>
-    );
+    )
 }

@@ -1,14 +1,14 @@
-"use client";
+"use client"
 
-import { type PresignedPost } from "@aws-sdk/s3-presigned-post";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { imageSchema, type ImageSchema } from "~/schemas/images";
+import { type PresignedPost } from "@aws-sdk/s3-presigned-post"
+import { useForm } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { imageSchema, type ImageSchema } from "~/schemas/images"
 
 export type PresignedPostResponse = {
-    url: string;
-    fields: PresignedPost["fields"];
-};
+    url: string
+    fields: PresignedPost["fields"]
+}
 
 export default function ImagesPage() {
     const {
@@ -18,34 +18,34 @@ export default function ImagesPage() {
     } = useForm<ImageSchema>({
         mode: "onChange",
         resolver: zodResolver(imageSchema),
-    });
+    })
 
     async function onSubmit(data: ImageSchema) {
-        if (!data.files[0]) throw new Error("Nenhuma imagem selecionada");
+        if (!data.files[0]) throw new Error("Nenhuma imagem selecionada")
 
         const res = await fetch("/api/presigned-post", {
             method: "POST",
-        });
+        })
 
-        const { fields, url } = (await res.json()) as PresignedPostResponse;
+        const { fields, url } = (await res.json()) as PresignedPostResponse
 
         const _formData: Record<string, string | Blob> = {
             ...fields,
             "Content-Type": data.files[0].type,
             file: data.files[0],
-        };
+        }
 
-        const formData = new FormData();
+        const formData = new FormData()
 
         for (const key in _formData) {
             // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-            formData.append(key, _formData[key]!);
+            formData.append(key, _formData[key]!)
         }
 
         await fetch(url, {
             method: "POST",
             body: formData,
-        });
+        })
     }
 
     return (
@@ -65,5 +65,5 @@ export default function ImagesPage() {
                 <button type="submit">Enviar</button>
             </form>
         </div>
-    );
+    )
 }

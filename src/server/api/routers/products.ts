@@ -1,13 +1,12 @@
-import { z } from "zod";
-import { productCreationSchema } from "~/schemas/products";
-import { seoCreationSchema } from "~/schemas/seo";
-import { adminProcedure, createTRPCRouter, } from "~/server/api/trpc";
-import { ulidFactory } from "ulid-workers";
+import { z } from "zod"
+import { productCreationSchema } from "~/schemas/products"
+import { seoCreationSchema } from "~/schemas/seo"
+import { adminProcedure, createTRPCRouter } from "~/server/api/trpc"
+import { ulidFactory } from "ulid-workers"
 
-const ulid = ulidFactory();
+const ulid = ulidFactory()
 
 export const productsRouter = createTRPCRouter({
-
     create: adminProcedure
         .input(
             z.object({
@@ -16,8 +15,8 @@ export const productsRouter = createTRPCRouter({
             })
         )
         .mutation(async ({ ctx, input }) => {
-            const { db } = ctx;
-            const { seo, product } = input;
+            const { db } = ctx
+            const { seo, product } = input
 
             if (!seo) {
                 const insertedProduct = await db
@@ -28,11 +27,11 @@ export const productsRouter = createTRPCRouter({
                         updatedAt: new Date(),
                         ...product,
                     })
-                    .executeTakeFirst();
-                return insertedProduct;
+                    .executeTakeFirst()
+                return insertedProduct
             }
 
-            const SEO_ID = ulid();
+            const SEO_ID = ulid()
 
             await db
                 .insertInto("SEO")
@@ -42,7 +41,7 @@ export const productsRouter = createTRPCRouter({
                     updatedAt: new Date(),
                     ...seo,
                 })
-                .executeTakeFirstOrThrow();
+                .executeTakeFirstOrThrow()
 
             const insertedProduct = await db
                 .insertInto("Product")
@@ -53,8 +52,8 @@ export const productsRouter = createTRPCRouter({
                     seoId: SEO_ID,
                     ...product,
                 })
-                .executeTakeFirst();
+                .executeTakeFirst()
 
-            return insertedProduct;
+            return insertedProduct
         }),
-});
+})
