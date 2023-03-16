@@ -1,11 +1,11 @@
 "use client"
 
-import { forwardRef } from "react";
-import { cn } from "~/utils/cn";
+import { forwardRef } from "react"
+import { cn } from "~/utils/cn"
 
 export type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
-    children: React.ReactNode;
-};
+    children: React.ReactNode
+}
 
 const Input = forwardRef<HTMLInputElement, InputProps>(
     ({ className, children, ...props }, ref) => {
@@ -15,7 +15,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
                     type="text"
                     id={props.id}
                     className={cn(
-                        "default-focus peer block w-full appearance-none rounded border px-2.5 pb-2.5 pt-5 text-sm drop-shadow transition-colors disabled:pointer-events-none disabled:opacity-60 dark:border-zinc-600 bg-base dark:bg-neutral-dark",
+                        "default-focus peer block w-full appearance-none rounded border bg-base px-2.5 pb-2.5 pt-5 text-sm drop-shadow transition-colors disabled:pointer-events-none disabled:opacity-60 dark:border-zinc-600 dark:bg-neutral-dark",
                         className
                     )}
                     {...props}
@@ -29,9 +29,9 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
                     {children}
                 </label>
             </div>
-        );
+        )
     }
-);
-Input.displayName = "Input";
+)
+Input.displayName = "Input"
 
-export { Input };
+export { Input }

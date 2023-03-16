@@ -1,22 +1,22 @@
-"use client";
+"use client"
 
-import { useEffect, useState } from "react";
-import { cn } from "~/utils/cn";
-import ReactCurrencyInput from "react-currency-input-field";
+import { useEffect, useState } from "react"
+import { cn } from "~/utils/cn"
+import ReactCurrencyInput from "react-currency-input-field"
 import type {
     FieldValues,
     UseFormRegister,
     UseFormSetValue,
-} from "react-hook-form";
-import { type Product } from "~/schemas/products";
+} from "react-hook-form"
+import { type Product } from "~/schemas/products"
 
 export type InputProps<T extends FieldValues> =
     React.InputHTMLAttributes<HTMLInputElement> & {
-        children: React.ReactNode;
-        name: keyof T;
-        register: UseFormRegister<T>;
-        setValue: UseFormSetValue<T>;
-    };
+        children: React.ReactNode
+        name: keyof T
+        register: UseFormRegister<T>
+        setValue: UseFormSetValue<T>
+    }
 
 export function CurrencyInput({
     className,
@@ -25,11 +25,11 @@ export function CurrencyInput({
     register,
     setValue,
 }: InputProps<Product>) {
-    const [value, _setValue] = useState<string | undefined>(undefined);
+    const [value, _setValue] = useState<string | undefined>(undefined)
 
     useEffect(() => {
-        register(name);
-    }, [name, register]);
+        register(name)
+    }, [name, register])
 
     return (
         <div className="relative w-full">
@@ -43,9 +43,9 @@ export function CurrencyInput({
                 placeholder=" "
                 value={value}
                 onValueChange={(value) => {
-                    if (!value) return;
-                    _setValue(value);
-                    setValue(name, value);
+                    if (!value) return
+                    _setValue(value)
+                    setValue(name, value)
                 }}
             />
             <label
@@ -55,5 +55,5 @@ export function CurrencyInput({
                 {children}
             </label>
         </div>
-    );
+    )
 }

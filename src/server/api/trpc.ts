@@ -14,15 +14,15 @@
  *
  * These allow you to access things when processing a request, like the database, the session, etc.
  */
-import { type CreateNextContextOptions } from "@trpc/server/adapters/next";
-import { getAuth } from "@clerk/nextjs/server";
-import { db } from "~/server/db";
-import { initTRPC, TRPCError } from "@trpc/server";
-import superjson from "superjson";
+import { type CreateNextContextOptions } from "@trpc/server/adapters/next"
+import { getAuth } from "@clerk/nextjs/server"
+import { db } from "~/server/db"
+import { initTRPC, TRPCError } from "@trpc/server"
+import superjson from "superjson"
 
 type CreateContextOptions = {
-    session: ReturnType<typeof getAuth> | null;
-};
+    session: ReturnType<typeof getAuth> | null
+}
 
 /**
  * This helper generates the "internals" for a tRPC context. If you need to use it, you can export
@@ -38,8 +38,8 @@ export const createInnerTRPCContext = (_opts: CreateContextOptions) => {
     return {
         db,
         session: _opts.session,
-    };
-};
+    }
+}
 
 /**
  * This is the actual context you will use in your router. It will be used to process every request
@@ -50,8 +50,8 @@ export const createInnerTRPCContext = (_opts: CreateContextOptions) => {
 export const createTRPCContext = (_opts: CreateNextContextOptions) => {
     return createInnerTRPCContext({
         session: getAuth(_opts.req),
-    });
-};
+    })
+}
 
 /**
  * 2. INITIALIZATION
@@ -62,9 +62,9 @@ export const createTRPCContext = (_opts: CreateNextContextOptions) => {
 const t = initTRPC.context<typeof createTRPCContext>().create({
     transformer: superjson,
     errorFormatter({ shape }) {
-        return shape;
+        return shape
     },
-});
+})
 
 /**
  * 3. ROUTER & PROCEDURE (THE IMPORTANT BIT)
@@ -78,7 +78,7 @@ const t = initTRPC.context<typeof createTRPCContext>().create({
  *
  * @see https://trpc.io/docs/router
  */
-export const createTRPCRouter = t.router;
+export const createTRPCRouter = t.router
 
 /**
  * Public (unauthenticated) procedure
@@ -87,41 +87,41 @@ export const createTRPCRouter = t.router;
  * guarantee that a user querying is authorized, but you can still access user session data if they
  * are logged in.
  */
-export const publicProcedure = t.procedure;
+export const publicProcedure = t.procedure
 
 /** Reusable middleware that enforces users are logged in before running the procedure. */
 const enforceUserIsAuthed = t.middleware(({ ctx, next }) => {
     if (!ctx.session || !ctx.session.userId) {
-        throw new TRPCError({ code: "UNAUTHORIZED" });
+        throw new TRPCError({ code: "UNAUTHORIZED" })
     }
     return next({
         ctx: {
             session: { ...ctx.session },
         },
-    });
-});
+    })
+})
 
 const enforceUserIsAdmin = t.middleware(async ({ ctx, next }) => {
     if (!ctx.session || !ctx.session.userId) {
-        throw new TRPCError({ code: "UNAUTHORIZED" });
+        throw new TRPCError({ code: "UNAUTHORIZED" })
     }
 
     const isAdmin = await ctx.db
         .selectFrom("AdminUsers")
         .where("AdminUsers.id", "=", ctx.session.userId)
         .select("AdminUsers.id")
-        .executeTakeFirst();
+        .executeTakeFirst()
 
     if (!isAdmin) {
-        throw new TRPCError({ code: "UNAUTHORIZED" });
+        throw new TRPCError({ code: "UNAUTHORIZED" })
     }
 
     return next({
         ctx: {
             session: { ...ctx.session },
         },
-    });
-});
+    })
+})
 
 /**
  * Protected (authenticated) procedure
@@ -131,5 +131,5 @@ const enforceUserIsAdmin = t.middleware(async ({ ctx, next }) => {
  *
  * @see https://trpc.io/docs/procedures
  */
-export const protectedProcedure = t.procedure.use(enforceUserIsAuthed);
-export const adminProcedure = t.procedure.use(enforceUserIsAdmin);
+export const protectedProcedure = t.procedure.use(enforceUserIsAuthed)
+export const adminProcedure = t.procedure.use(enforceUserIsAdmin)

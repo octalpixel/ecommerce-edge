@@ -1,5 +1,5 @@
-import { type Kysely } from "kysely";
-import { type Database } from "../db";
+import { type Kysely } from "kysely"
+import { type Database } from "../db"
 
 export async function isUserAdmin(
     db: Kysely<Database>,
@@ -9,6 +9,6 @@ export async function isUserAdmin(
         .selectFrom("AdminUsers")
         .where("id", "=", userId)
         .select("id")
-        .executeTakeFirst();
+        .executeTakeFirst()
     return Boolean(user)
 }

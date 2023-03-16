@@ -1,18 +1,21 @@
-import { currentUser } from "@clerk/nextjs/app-beta";
-import { redirect } from "next/navigation";
-import { db } from "~/server/db";
-import { isUserAdmin } from "~/server/services/admin-users";
+import { currentUser } from "@clerk/nextjs/app-beta"
+import { redirect } from "next/navigation"
+import { db } from "~/server/db"
+import { isUserAdmin } from "~/server/services/admin-users"
 
 export default async function AdminLayout(props: {
-    children: React.ReactNode;
+    children: React.ReactNode
 }) {
-    const user = await currentUser();
+    const user = await currentUser()
 
-    if (!user) redirect("/");
+    if (!user) redirect("/")
 
-    const isAdminUser = await isUserAdmin(db, user.id);
+    const isAdminUser = await isUserAdmin(db, user.id)
 
-    if (!isAdminUser) redirect("/");
+    if (!isAdminUser) redirect("/")
 
-    return <main>{props.children}</main>;
+    return <main>{props.children}</main>
 }
+
+export const runtime = "experimental-edge"
+export const preferredRegion = "home"

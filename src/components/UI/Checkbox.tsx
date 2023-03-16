@@ -1,16 +1,16 @@
 "use client"
 
-import React from "react";
-import * as CheckboxPrimitive from "@radix-ui/react-checkbox";
-import { Check } from "lucide-react";
+import React from "react"
+import * as CheckboxPrimitive from "@radix-ui/react-checkbox"
+import { Check } from "lucide-react"
 
-import { cn } from "~/utils/cn";
-import { Controller, type ControllerProps } from "react-hook-form";
+import { cn } from "~/utils/cn"
+import { Controller, type ControllerProps } from "react-hook-form"
 
 const Checkbox = React.forwardRef<
     React.ElementRef<typeof CheckboxPrimitive.Root>,
     React.ComponentPropsWithoutRef<typeof CheckboxPrimitive.Root> & {
-        controllerProps: ControllerProps;
+        controllerProps: ControllerProps
     }
 >(({ className, controllerProps, ...props }, ref) => (
     <Controller
@@ -22,7 +22,7 @@ const Checkbox = React.forwardRef<
                 onCheckedChange={field.onChange}
                 ref={ref}
                 className={cn(
-                    "peer h-4 w-4 shrink-0 rounded-sm border border-slate-300 disabled:cursor-not-allowed disabled:opacity-50 dark:border-zinc-600 default-focus",
+                    "default-focus peer h-4 w-4 shrink-0 rounded-sm border border-slate-300 disabled:cursor-not-allowed disabled:opacity-50 dark:border-zinc-600",
                     className
                 )}
                 {...props}
@@ -35,7 +35,7 @@ const Checkbox = React.forwardRef<
             </CheckboxPrimitive.Root>
         )}
     />
-));
-Checkbox.displayName = CheckboxPrimitive.Root.displayName;
+))
+Checkbox.displayName = CheckboxPrimitive.Root.displayName
 
-export { Checkbox };
+export { Checkbox }

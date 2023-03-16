@@ -1,17 +1,17 @@
-import "~/styles/globals.css";
-import { ClerkProvider } from "@clerk/nextjs/app-beta";
-import { dark } from "@clerk/themes";
-import { Inter } from "next/font/google";
-import { Navbar } from "~/components/Navbar";
-import { Toaster } from "~/components/UI/Toaster";
-import { TRPCProvider } from "~/utils/api";
+import "~/styles/globals.css"
+import { ClerkProvider } from "@clerk/nextjs/app-beta"
+import { dark } from "@clerk/themes"
+import { Inter } from "next/font/google"
+import { Navbar } from "~/components/Navbar"
+import { Toaster } from "~/components/UI/Toaster"
+import { TRPCProvider } from "~/utils/api"
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ["latin"] })
 
 export const metadata = {
     title: "Next.js 13 AppDir (Edge Runtime) + Clerk + TRPC",
     description: "Next.js 13 AppDir (Edge Runtime) + Clerk + TRPC",
-};
+}
 
 export default function RootLayout(props: { children: React.ReactNode }) {
     return (
@@ -30,8 +30,8 @@ export default function RootLayout(props: { children: React.ReactNode }) {
                 </TRPCProvider>
             </ClerkProvider>
         </html>
-    );
+    )
 }
 
-export const runtime = "experimental-edge";
-export const preferredRegion = "home";
+export const runtime = "experimental-edge"
+export const preferredRegion = "home"

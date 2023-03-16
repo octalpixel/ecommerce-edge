@@ -1,38 +1,38 @@
-"use client";
+"use client"
 
 /* eslint-disable @typescript-eslint/no-misused-promises */
-import { api } from "~/utils/api";
-import { type Product, productCreationSchema } from "~/schemas/products";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Label } from "~/components/UI/Label";
-import { Input } from "~/components/UI/Input";
-import { Checkbox } from "~/components/UI/Checkbox";
-import { Button } from "~/components/UI/Button";
-import { useState } from "react";
-import { Toggle } from "~/components/UI/Toggle";
-import { Editor } from "~/components/CreateProduct/Editor";
-import { CurrencyInput } from "~/components/CreateProduct/CurrencyInput";
-import { useToast } from "~/hooks/use-toast";
-import { Dropzone } from "~/components/Dropzone";
+import { api } from "~/utils/api"
+import { type Product, productCreationSchema } from "~/schemas/products"
+import { useForm } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { Label } from "~/components/UI/Label"
+import { Input } from "~/components/UI/Input"
+import { Checkbox } from "~/components/UI/Checkbox"
+import { Button } from "~/components/UI/Button"
+import { useState } from "react"
+import { Toggle } from "~/components/UI/Toggle"
+import { Editor } from "~/components/CreateProduct/Editor"
+import { CurrencyInput } from "~/components/CreateProduct/CurrencyInput"
+import { useToast } from "~/hooks/use-toast"
+import { Dropzone } from "~/components/Dropzone"
 
 export default function AddProductPage() {
-    const { toast } = useToast();
-    const ctx = api.useContext();
+    const { toast } = useToast()
+    const ctx = api.useContext()
 
     const createProductMutation = api.products.create.useMutation({
         onSuccess: async () => {
             toast({
                 title: "Produto criado com sucesso",
-            });
-            await ctx.public.listProducts.invalidate();
+            })
+            await ctx.public.listProducts.invalidate()
         },
         onError: () => {
             toast({
                 title: "Ocorreu um erro ao criar o produto",
-            });
+            })
         },
-    });
+    })
 
     const {
         handleSubmit,
@@ -48,17 +48,17 @@ export default function AddProductPage() {
             active: false,
         },
         resolver: zodResolver(productCreationSchema),
-    });
+    })
 
-    const [isManagedStock, setIsManagedStock] = useState(false);
+    const [isManagedStock, setIsManagedStock] = useState(false)
 
     async function onSubmit(data: Product) {
-        console.log({ data });
+        console.log({ data })
         toast({
             title: "Criando produto...",
-        });
-        await createProductMutation.mutateAsync({ product: data });
-        reset();
+        })
+        await createProductMutation.mutateAsync({ product: data })
+        reset()
     }
 
     return (
@@ -166,5 +166,5 @@ export default function AddProductPage() {
                 <Button type="submit">Criar produto</Button>
             </form>
         </div>
-    );
+    )
 }

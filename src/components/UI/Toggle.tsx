@@ -5,15 +5,15 @@ import {
     type Dispatch,
     type SetStateAction,
     type InputHTMLAttributes,
-} from "react";
-import { cn } from "~/utils/cn";
+} from "react"
+import { cn } from "~/utils/cn"
 
 export type ToggleProps = {
-    value?: string | number;
-    checked: boolean;
-    setChecked: Dispatch<SetStateAction<boolean>>;
-    textSide?: "left" | "right";
-} & InputHTMLAttributes<HTMLInputElement>;
+    value?: string | number
+    checked: boolean
+    setChecked: Dispatch<SetStateAction<boolean>>
+    textSide?: "left" | "right"
+} & InputHTMLAttributes<HTMLInputElement>
 
 const Toggle = forwardRef<HTMLInputElement, ToggleProps>(
     (
@@ -61,10 +61,10 @@ const Toggle = forwardRef<HTMLInputElement, ToggleProps>(
                 />
                 <div className="peer h-6 w-11 rounded-full border bg-neutral after:absolute after:top-[2px] after:right-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-primary peer-checked:after:-translate-x-full peer-checked:after:border-white peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-primary-emphasis peer-focus:ring-offset-2 dark:border-zinc-600 dark:bg-neutral-dark"></div>
             </label>
-        );
+        )
     }
-);
+)
 
-Toggle.displayName = "Toggle";
+Toggle.displayName = "Toggle"
 
-export { Toggle };
+export { Toggle }

@@ -1,15 +1,15 @@
-import { env } from "~/env.mjs";
-import { appRouter } from "~/server/api/root";
-import { fetchRequestHandler } from "@trpc/server/adapters/fetch";
-import type { NextRequest } from "next/server";
-import { db } from "~/server/db";
-import { getAuth } from "@clerk/nextjs/server";
+import { env } from "~/env.mjs"
+import { appRouter } from "~/server/api/root"
+import { fetchRequestHandler } from "@trpc/server/adapters/fetch"
+import type { NextRequest } from "next/server"
+import { db } from "~/server/db"
+import { getAuth } from "@clerk/nextjs/server"
 
 /**
  * Edge runtime fetch adapter
  */
 export default async function handler(req: NextRequest) {
-    const session = getAuth(req);
+    const session = getAuth(req)
 
     return fetchRequestHandler({
         endpoint: "/api/trpc",
@@ -19,34 +19,36 @@ export default async function handler(req: NextRequest) {
         onError:
             env.NODE_ENV === "development"
                 ? ({ path, error }) => {
-                    console.error(
-                        `❌ tRPC failed on ${path ?? "<no-path>"}: ${error.message
-                        }`
-                    );
-                }
+                      console.error(
+                          `❌ tRPC failed on ${path ?? "<no-path>"}: ${
+                              error.message
+                          }`
+                      )
+                  }
                 : undefined,
         responseMeta({ ctx, paths, type, errors }) {
             // assuming you have all your public routes with the keyword `public` in them
-            const allPublic = paths && paths.every((path) => path.includes('public'));
+            const allPublic =
+                paths && paths.every((path) => path.includes("public"))
             // checking that no procedures errored
-            const allOk = errors.length === 0;
+            const allOk = errors.length === 0
             // checking we're doing a query request
-            const isQuery = type === 'query';
+            const isQuery = type === "query"
             //@ts-expect-error res exists
             if (ctx?.res && allPublic && allOk && isQuery) {
                 // cache request for 1 day + revalidate once every second
                 return {
                     headers: {
-                        'Cache-Control': `s-maxage=60, stale-while-revalidate`,
+                        "Cache-Control": `s-maxage=60, stale-while-revalidate`,
                     },
-                };
+                }
             }
-            return {};
+            return {}
         },
-    });
+    })
 }
 
 export const config = {
     runtime: "edge",
-    regions: "gru1"
-};
+    regions: "gru1",
+}

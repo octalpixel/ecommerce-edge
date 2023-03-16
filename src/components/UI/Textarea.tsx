@@ -1,9 +1,9 @@
 "use client"
 
-import { forwardRef } from "react";
-import { cn } from "~/utils/cn";
+import { forwardRef } from "react"
+import { cn } from "~/utils/cn"
 
-export type TextareaProps = React.TextareaHTMLAttributes<HTMLTextAreaElement>;
+export type TextareaProps = React.TextareaHTMLAttributes<HTMLTextAreaElement>
 
 const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
     ({ className, ...props }, ref) => {
@@ -16,9 +16,9 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
                 ref={ref}
                 {...props}
             />
-        );
+        )
     }
-);
-Textarea.displayName = "Textarea";
+)
+Textarea.displayName = "Textarea"
 
-export { Textarea };
+export { Textarea }

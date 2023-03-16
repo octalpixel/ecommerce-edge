@@ -1,12 +1,12 @@
-"use client";
+"use client"
 
-import Link from "next/link";
-import { api, type RouterOutputs } from "~/utils/api";
-type Product = RouterOutputs["public"]["listProducts"][number];
+import Link from "next/link"
+import { api, type RouterOutputs } from "~/utils/api"
+type Product = RouterOutputs["public"]["listProducts"][number]
 
 type ProductListProps = {
-    initialData?: Product[];
-};
+    initialData?: Product[]
+}
 
 export function ProductList(props: ProductListProps) {
     const { data: products, isLoading } = api.public.listProducts.useQuery(
@@ -16,7 +16,7 @@ export function ProductList(props: ProductListProps) {
             staleTime: Infinity,
             refetchOnWindowFocus: false,
         }
-    );
+    )
     return (
         <div>
             {isLoading ? (
@@ -36,5 +36,5 @@ export function ProductList(props: ProductListProps) {
                 </ul>
             )}
         </div>
-    );
+    )
 }

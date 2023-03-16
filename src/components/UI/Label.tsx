@@ -1,13 +1,13 @@
 "use client"
 
-import * as LabelPrimitive from "@radix-ui/react-label";
-import { forwardRef } from "react";
-import { cn } from "~/utils/cn";
+import * as LabelPrimitive from "@radix-ui/react-label"
+import { forwardRef } from "react"
+import { cn } from "~/utils/cn"
 
 const Label = forwardRef<
     React.ElementRef<typeof LabelPrimitive.Root>,
     React.ComponentPropsWithoutRef<typeof LabelPrimitive.Root> & {
-        required?: boolean;
+        required?: boolean
     }
 >(({ className, required, ...props }, ref) =>
     required ? (
@@ -32,7 +32,7 @@ const Label = forwardRef<
             {...props}
         />
     )
-);
-Label.displayName = LabelPrimitive.Root.displayName;
+)
+Label.displayName = LabelPrimitive.Root.displayName
 
-export { Label };
+export { Label }
