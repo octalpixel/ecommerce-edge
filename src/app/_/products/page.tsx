@@ -6,7 +6,7 @@ export const fetchCache = "force-no-store";
 
 export default async function ProductsPage() {
     const caller = appRouter.createCaller({ db, session: null });
-    const initialData = await caller.products.list();
+    const initialData = await caller.public.listProducts();
 
     return (
         <div>

@@ -2,14 +2,14 @@
 
 import Link from "next/link";
 import { api, type RouterOutputs } from "~/utils/api";
-type Product = RouterOutputs["products"]["list"][number];
+type Product = RouterOutputs["public"]["listProducts"][number];
 
 type ProductListProps = {
     initialData?: Product[];
 };
 
 export function ProductList(props: ProductListProps) {
-    const { data: products, isLoading } = api.products.list.useQuery(
+    const { data: products, isLoading } = api.public.listProducts.useQuery(
         undefined,
         {
             initialData: props.initialData,

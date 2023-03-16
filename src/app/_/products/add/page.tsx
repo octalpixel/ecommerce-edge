@@ -14,7 +14,7 @@ import { Toggle } from "~/components/UI/Toggle";
 import { Editor } from "~/components/CreateProduct/Editor";
 import { CurrencyInput } from "~/components/CreateProduct/CurrencyInput";
 import { useToast } from "~/hooks/use-toast";
-import {Dropzone} from "~/components/Dropzone"
+import { Dropzone } from "~/components/Dropzone";
 
 export default function AddProductPage() {
     const { toast } = useToast();
@@ -25,7 +25,7 @@ export default function AddProductPage() {
             toast({
                 title: "Produto criado com sucesso",
             });
-            await ctx.products.list.invalidate();
+            await ctx.public.listProducts.invalidate();
         },
         onError: () => {
             toast({
@@ -129,7 +129,7 @@ export default function AddProductPage() {
                     </p>
                 )}
 
-                <Dropzone/>
+                <Dropzone />
 
                 <CurrencyInput
                     type="number"
