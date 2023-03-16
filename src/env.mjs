@@ -9,8 +9,8 @@ const server = z.object({
     DATABASE_USERNAME: z.string().min(1),
     DATABASE_PASSWORD: z.string().min(1),
     CLERK_SECRET_KEY: z.string().min(1),
-    AWS_ACCESS_KEY_ID: z.string().min(1),
-    AWS_SECRET_ACCESS_KEY: z.string().min(1),
+    ACCESS_KEY_ID: z.string().min(1),
+    SECRET_ACCESS_KEY: z.string().min(1),
     BUCKET_NAME: z.string().min(1),
     NODE_ENV: z.enum(["development", "test", "production"]),
 });
@@ -38,8 +38,8 @@ const processEnv = {
     NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY:
         process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY,
     CLERK_SECRET_KEY: process.env.CLERK_SECRET_KEY,
-    AWS_ACCESS_KEY_ID: process.env.AWS_ACCESS_KEY_ID,
-    AWS_SECRET_ACCESS_KEY: process.env.AWS_SECRET_ACCESS_KEY,
+    ACCESS_KEY_ID: process.env.ACCESS_KEY_ID,
+    SECRET_ACCESS_KEY: process.env.SECRET_ACCESS_KEY,
     BUCKET_NAME: process.env.BUCKET_NAME,
     // NEXT_PUBLIC_CLIENTVAR: process.env.NEXT_PUBLIC_CLIENTVAR,
 };
