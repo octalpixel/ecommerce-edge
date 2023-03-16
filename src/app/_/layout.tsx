@@ -17,5 +17,3 @@ export default async function AdminLayout(props: {
     return <main>{props.children}</main>
 }
 
-export const runtime = "experimental-edge"
-export const preferredRegion = "home"

@@ -67,5 +67,4 @@ export default function ImagesPage() {
         </div>
     )
 }
-export const runtime = "experimental-edge"
-export const preferredRegion = "home"
+
