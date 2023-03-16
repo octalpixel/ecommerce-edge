@@ -31,3 +31,7 @@ export default function CachedPage() {
         </div>
     )
 }
+export const config = {
+    runtime: "experimental-edge",
+    regions: "gru1"
+}
