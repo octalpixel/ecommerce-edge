@@ -168,3 +168,5 @@ export default function AddProductPage() {
         </div>
     )
 }
+export const runtime = "experimental-edge"
+export const preferredRegion = "home"

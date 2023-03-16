@@ -11,3 +11,5 @@ export default async function CachedPage() {
         </div>
     )
 }
+export const runtime = "experimental-edge"
+export const preferredRegion = "home"
