@@ -32,6 +32,3 @@ export default function RootLayout(props: { children: React.ReactNode }) {
         </html>
     )
 }
-
-export const runtime = "experimental-edge"
-export const preferredRegion = "home"

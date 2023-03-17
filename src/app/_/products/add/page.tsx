@@ -168,4 +168,4 @@ export default function AddProductPage() {
         </div>
     )
 }
-
+export const runtime = "edge"

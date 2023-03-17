@@ -67,4 +67,4 @@ export default function ImagesPage() {
         </div>
     )
 }
-
+export const runtime = "edge"
