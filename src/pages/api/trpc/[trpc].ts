@@ -34,12 +34,11 @@ export default async function handler(req: NextRequest) {
             const allOk = errors.length === 0
             // checking we're doing a query request
             const isQuery = type === "query"
-            //@ts-expect-error res exists
-            if (ctx?.res && allPublic && allOk && isQuery) {
+            if (allPublic && allOk && isQuery) {
                 // cache request for 1 day + revalidate once every second
                 return {
                     headers: {
-                        "Cache-Control": `s-maxage=60, stale-while-revalidate`,
+                        "Cache-Control": `s-maxage=1, stale-while-revalidate=${60 * 60 * 24}`,
                     },
                 }
             }
