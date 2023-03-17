@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { api, type RouterOutputs } from "~/utils/api"
+import { api } from "~/utils/api"
 
 export function ProductList() {
     const { data: products, isLoading } = api.public.listProducts.useQuery(

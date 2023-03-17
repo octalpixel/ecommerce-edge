@@ -29,3 +29,8 @@ export default function ProductsPage() {
         </div>
     )
 }
+
+export const config = {
+    runtime: "experimental-edge",
+    regions: "gru1",
+}
